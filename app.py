@@ -153,6 +153,42 @@ LIGHT = {
 T = DARK if st.session_state.dark_mode else LIGHT
 
 # ─────────────────────────────────────────────
+#  HUMAN HEART ICON  (inline SVG, cardiology style)
+# ─────────────────────────────────────────────
+def heart_icon(size=70):
+    return (
+        '<svg width="' + str(size) + '" height="' + str(size) + '" '
+        'viewBox="0 0 110 125" xmlns="http://www.w3.org/2000/svg" '
+        'style="display:block;margin:0 auto;">'
+        '<g stroke="#7a1420" stroke-width="1.4" stroke-linejoin="round">'
+        '<rect x="42" y="2" width="8" height="26" rx="4" fill="#ff5a6e" transform="rotate(-10 46 15)"/>'
+        '<rect x="52" y="0" width="8" height="28" rx="4" fill="#ff7383" transform="rotate(0 56 14)"/>'
+        '<rect x="62" y="2" width="8" height="26" rx="4" fill="#e0303f" transform="rotate(10 66 15)"/>'
+        '</g>'
+        '<path d="M78 26 C 92 22, 98 30, 94 38 C 90 45, 80 43, 76 36 Z" '
+        'fill="#b81f2c" stroke="#7a1420" stroke-width="1.4"/>'
+        '<path d="M40 24 C 26 16, 14 18, 9 30 C 4 40, 16 46, 26 44 L 42 42 Z" '
+        'fill="#f4a3ab" stroke="#7a1420" stroke-width="1.4"/>'
+        '<path d="M0 58 L 9 30" stroke="#f4a3ab" stroke-width="7" '
+        'stroke-linecap="round" fill="none"/>'
+        '<path d="M30 40 C 10 46, 2 68, 14 88 C 26 106, 46 116, 58 108 '
+        'C 78 96, 88 74, 80 52 C 74 36, 54 30, 44 40 Z" '
+        'fill="#d81e2c" stroke="#7a1420" stroke-width="1.8"/>'
+        '<path d="M30 44 C 18 50, 12 66, 19 79 C 25 88, 36 90, 41 82 '
+        'C 46 71, 43 52, 34 44 Z" fill="#f0525f" opacity="0.85"/>'
+        '<path d="M56 48 C 66 52, 71 65, 66 78 C 62 87, 51 89, 47 80 '
+        'C 43 69, 46 53, 56 48 Z" fill="#e8434f" opacity="0.7"/>'
+        '<g stroke="#7a1420" stroke-width="1.3" fill="none" stroke-linecap="round">'
+        '<path d="M27 62 C 25 74, 31 84, 36 94"/>'
+        '<path d="M31 72 L 22 80"/>'
+        '<path d="M60 62 C 64 74, 60 86, 54 96"/>'
+        '<path d="M58 74 L 67 81"/>'
+        '</g>'
+        '</svg>'
+    )
+
+
+# ─────────────────────────────────────────────
 #  INJECT CSS  (with responsive breakpoints)
 # ─────────────────────────────────────────────
 st.markdown("""
@@ -629,7 +665,7 @@ input::placeholder { color: """ + T["text_muted"] + """ !important; }
 with st.sidebar:
     st.markdown("""
     <div style="text-align:center;padding:18px 0 10px;">
-        <img src="https://cdn-icons-png.flaticon.com/512/2966/2966486.png" width="70" style="margin:0 auto;display:block;" />
+        """ + heart_icon(70) + """
         <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:22px;
                     font-weight:800;color:#a5b4fc;margin-top:10px;">CardioAI</div>
         <div style="font-size:11px;color:rgba(165,180,252,.5);letter-spacing:1px;
@@ -970,7 +1006,7 @@ st.markdown("<div class='glow-divider' style='margin-top:40px;'></div>", unsafe_
 st.markdown("""
 <div class="footer-wrap">
     <div class="footer-logo-row">
-        <img src="https://cdn-icons-png.flaticon.com/512/2966/2966486.png" width="20" />
+        """ + heart_icon(22) + """
         <span class="footer-logo">CardioAI</span>
     </div>
     <div class="footer-sub">
