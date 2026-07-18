@@ -345,11 +345,12 @@ html, body, [class*="css"] {
 .hero-sub {
     font-size: clamp(13px, 1.8vw, 16px);
     color: """ + T["hero_sub"] + """;
-    max-width: 500px;
+    max-width: 640px;
     margin: 0 auto 10px;
     line-height: 1.7;
     font-weight: 400;
     padding: 0 8px;
+    text-align: center;
 }
 
 /* ── Divider ── */
@@ -805,7 +806,7 @@ with col_right:
 # ─────────────────────────────────────────────
 #  PREDICT BUTTON  (left-aligned under the form)
 # ─────────────────────────────────────────────
-st.markdown("<br>", unsafe_allow_html=True)
+st.markdown("<div style='height:5px;'></div>", unsafe_allow_html=True)
 btn_col, _spacer = st.columns([1, 2])
 with btn_col:
     predict_clicked = st.button("🔍  Analyse Cardiovascular Risk")
