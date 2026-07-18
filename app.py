@@ -9,7 +9,7 @@ import time
 # ─────────────────────────────────────────────
 st.set_page_config(
     page_title="CardioAI · Heart Risk Intelligence",
-    page_icon="🫀",
+    page_icon="❤️",
     layout="wide",
     initial_sidebar_state="expanded",
 )
@@ -621,7 +621,7 @@ input::placeholder { color: """ + T["text_muted"] + """ !important; }
 with st.sidebar:
     st.markdown("""
     <div style="text-align:center;padding:18px 0 10px;">
-        <div style="font-size:50px;">🫀</div>
+        <div style="font-size:50px;">❤️</div>
         <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:22px;
                     font-weight:800;color:#a5b4fc;margin-top:8px;">CardioAI</div>
         <div style="font-size:11px;color:rgba(165,180,252,.5);letter-spacing:1px;
@@ -961,7 +961,7 @@ if predict_clicked:
 st.markdown("<div class='glow-divider' style='margin-top:40px;'></div>", unsafe_allow_html=True)
 st.markdown("""
 <div class="footer-wrap">
-    <div class="footer-logo">🫀 CardioAI</div>
+    <div class="footer-logo">❤️ CardioAI</div>
     <div class="footer-sub">
         Crafted with precision by <a href="#">Amit</a> &nbsp;·&nbsp;
         Powered by Scikit-Learn &amp; Streamlit &nbsp;·&nbsp; © 2025 All Rights Reserved
