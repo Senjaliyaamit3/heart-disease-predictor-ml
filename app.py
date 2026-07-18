@@ -195,8 +195,9 @@ html, body, [class*="css"] {
 [data-testid="stSidebar"] {
     background: """ + T["sidebar_bg"] + """ !important;
     border-right: 1px solid """ + T["sidebar_border"] + """;
-    min-width: 300px !important;
-    max-width: 340px !important;
+}
+[data-testid="stSidebar"] > div {
+    width: 300px;
 }
 [data-testid="stSidebar"] * { color: """ + T["sidebar_text"] + """ !important; }
 [data-testid="stSidebar"] hr { border-color: """ + T["sidebar_border"] + """ !important; }
@@ -582,7 +583,7 @@ input::placeholder { color: """ + T["text_muted"] + """ !important; }
 /* Tablets & small laptops */
 @media (max-width: 992px) {
     .block-container { padding-left: 1.2rem !important; padding-right: 1.2rem !important; }
-    [data-testid="stSidebar"] { min-width: 260px !important; }
+    [data-testid="stSidebar"] > div { width: 260px; }
 }
 
 /* Tablets / large phones — Streamlit auto-stacks columns near this width */
