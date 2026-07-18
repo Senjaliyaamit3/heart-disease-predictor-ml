@@ -1,427 +1,3 @@
-# import streamlit as st
-# import pandas as pd
-# import joblib
-
-# model = joblib.load("Logistic_Regression_heart.pkl")
-# scaler = joblib.load("scaler.pkl")
-# expected_columns = joblib.load("columns.pkl")
-
-# st.title("Heart Stroke Prediction by Amit ❤")
-# st.markdown("Provide The Following Details")
-
-# age = st.slider("Age",18,100,40)
-
-# sex = st.selectbox("SEX",['M','F'])
-
-# chest_pain = st.selectbox(
-#     "Chest Pain Type",
-#     ["ATA","NAP","TA","ASY"]
-# )
-
-# resting_bp = st.number_input(
-#     "Resting Blood Pressure(mm Hg)",
-#     80,200,120
-# )
-
-# cholesterol = st.number_input(
-#     "Cholesterol (mg/dL)",
-#     100,600,200
-# )
-
-# fasting_bs = st.selectbox(
-#     "Fasting Blood Sugar > 120 mg/dL",
-#     [0,1]
-# )
-
-# resting_ecg = st.selectbox(
-#     "Resting ECG",
-#     ["Normal","ST","LVH"]
-# )
-
-# max_hr = st.slider(
-#     "Max Heart Rate",
-#     60,220,150
-# )
-
-# exercise_angina = st.selectbox(
-#     "Exercise-Induced Angina",
-#     ["Y","N"]
-# )
-
-# oldpeak = st.slider(
-#     "Oldpeak (ST Depression)",
-#     0.0,6.0,1.0
-# )
-
-# st_slope = st.selectbox(
-#     "ST Slope",
-#     ["Up","Flat","Down"]
-# )
-
-# if st.button("Predict"):
-
-#     raw_input = {
-#         "Age": age,
-#         "RestingBP": resting_bp,
-#         "Cholesterol": cholesterol,
-#         "FastingBS": fasting_bs,
-#         "MaxHR": max_hr,
-#         "Oldpeak": oldpeak,
-
-#         "Sex_" + sex: 1,
-#         "ChestPainType_" + chest_pain: 1,
-#         "RestingECG_" + resting_ecg: 1,
-#         "ExerciseAngina_" + exercise_angina: 1,
-#         "ST_Slope_" + st_slope: 1
-#     }
-
-#     input_df = pd.DataFrame([raw_input])
-
-#     for col in expected_columns:
-#         if col not in input_df.columns:
-#             input_df[col] = 0
-
-#     input_df = input_df[expected_columns]
-
-#     scaled_input = scaler.transform(input_df)
-
-#     prediction = model.predict(scaled_input)[0]
-
-#     if prediction == 1:
-#         st.error("⚠ High Risk of Heart Disease")
-#     else:
-#         st.success("✅ Low Risk of Heart Disease")
-
-# import streamlit as st
-# import pandas as pd
-# import joblib
-# import numpy as np
-
-# # ---------------- PAGE CONFIG ----------------
-# st.set_page_config(
-#     page_title="AI Heart Disease Predictor",
-#     page_icon="❤",
-#     layout="wide",
-#     initial_sidebar_state="expanded"
-# )
-
-# # ---------------- LOAD MODEL ----------------
-# model = joblib.load("Logistic_Regression_heart.pkl")
-# scaler = joblib.load("scaler.pkl")
-# expected_columns = joblib.load("columns.pkl")
-
-# # ---------------- CUSTOM CSS ----------------
-# st.markdown("""
-# <style>
-
-# html, body, [class*="css"]  {
-#     font-family: 'Segoe UI', sans-serif;
-# }
-
-# .main {
-#     background: linear-gradient(to right, #eef2f7, #ffffff);
-# }
-
-# .main-title {
-#     font-size: 48px;
-#     font-weight: 800;
-#     text-align: center;
-#     color: #d81b60;
-#     margin-bottom: 5px;
-# }
-
-# .sub-title {
-#     text-align: center;
-#     color: #555;
-#     font-size: 18px;
-#     margin-bottom: 30px;
-# }
-
-# .card {
-#     background-color: white;
-#     padding: 25px;
-#     border-radius: 18px;
-#     box-shadow: 0px 4px 15px rgba(0,0,0,0.08);
-#     margin-bottom: 20px;
-# }
-
-# .metric-box {
-#     background: linear-gradient(135deg,#d81b60,#ff6f91);
-#     padding: 20px;
-#     border-radius: 15px;
-#     color: white;
-#     text-align: center;
-#     box-shadow: 0px 4px 12px rgba(0,0,0,0.15);
-# }
-
-# .metric-number {
-#     font-size: 30px;
-#     font-weight: bold;
-# }
-
-# .metric-label {
-#     font-size: 15px;
-#     opacity: 0.9;
-# }
-
-# .stButton > button {
-#     width: 100%;
-#     height: 60px;
-#     border-radius: 14px;
-#     border: none;
-#     background: linear-gradient(90deg,#d81b60,#ff6f91);
-#     color: white;
-#     font-size: 22px;
-#     font-weight: bold;
-#     transition: 0.3s;
-# }
-
-# .stButton > button:hover {
-#     transform: scale(1.02);
-#     background: linear-gradient(90deg,#b0004f,#ff4778);
-#     color: white;
-# }
-
-# .result-success {
-#     background: #d4edda;
-#     padding: 25px;
-#     border-radius: 15px;
-#     color: #155724;
-#     text-align: center;
-#     font-size: 28px;
-#     font-weight: bold;
-# }
-
-# .result-danger {
-#     background: #f8d7da;
-#     padding: 25px;
-#     border-radius: 15px;
-#     color: #721c24;
-#     text-align: center;
-#     font-size: 28px;
-#     font-weight: bold;
-# }
-
-# .footer {
-#     text-align: center;
-#     color: gray;
-#     margin-top: 50px;
-# }
-
-# </style>
-# """, unsafe_allow_html=True)
-
-# # ---------------- SIDEBAR ----------------
-# with st.sidebar:
-
-#     st.image(
-#         "https://cdn-icons-png.flaticon.com/512/2966/2966486.png",
-#         width=120
-#     )
-
-#     st.title("❤ AI Health Dashboard")
-
-#     st.markdown("""
-#     ### About Project
-    
-#     This intelligent system predicts the possibility of heart disease using:
-    
-#     ✔ Logistic Regression  
-#     ✔ Machine Learning  
-#     ✔ Data Scaling  
-#     ✔ Real-time Prediction  
-    
-#     ---
-    
-#     ### Technologies
-    
-#     - Python
-#     - Streamlit
-#     - Scikit-Learn
-#     - Pandas
-#     """)
-
-# # ---------------- HEADER ----------------
-# st.markdown(
-#     "<div class='main-title'>❤ AI Heart Disease Prediction System</div>",
-#     unsafe_allow_html=True
-# )
-
-# st.markdown(
-#     "<div class='sub-title'>Advanced Machine Learning Based Healthcare Risk Analysis</div>",
-#     unsafe_allow_html=True
-# )
-
-# # ---------------- TOP METRICS ----------------
-# m1, m2, m3 = st.columns(3)
-
-# with m1:
-#     st.markdown("""
-#     <div class='metric-box'>
-#         <div class='metric-number'>95%</div>
-#         <div class='metric-label'>Prediction Accuracy</div>
-#     </div>
-#     """, unsafe_allow_html=True)
-
-# with m2:
-#     st.markdown("""
-#     <div class='metric-box'>
-#         <div class='metric-number'>24/7</div>
-#         <div class='metric-label'>AI Monitoring</div>
-#     </div>
-#     """, unsafe_allow_html=True)
-
-# with m3:
-#     st.markdown("""
-#     <div class='metric-box'>
-#         <div class='metric-number'>ML</div>
-#         <div class='metric-label'>Powered Intelligence</div>
-#     </div>
-#     """, unsafe_allow_html=True)
-
-# st.markdown("<br>", unsafe_allow_html=True)
-
-# # ---------------- INPUT FORM ----------------
-# left, right = st.columns(2)
-
-# with left:
-
-#     st.markdown("<div class='card'>", unsafe_allow_html=True)
-
-#     st.subheader("👤 Personal Information")
-
-#     age = st.slider("Age", 18, 100, 40)
-
-#     sex = st.selectbox(
-#         "Gender",
-#         ['M', 'F']
-#     )
-
-#     chest_pain = st.selectbox(
-#         "Chest Pain Type",
-#         ["ATA", "NAP", "TA", "ASY"]
-#     )
-
-#     resting_bp = st.number_input(
-#         "Resting Blood Pressure",
-#         80, 200, 120
-#     )
-
-#     cholesterol = st.number_input(
-#         "Cholesterol Level",
-#         100, 600, 200
-#     )
-
-#     st.markdown("</div>", unsafe_allow_html=True)
-
-# with right:
-
-#     st.markdown("<div class='card'>", unsafe_allow_html=True)
-
-#     st.subheader("🩺 Medical Information")
-
-#     fasting_bs = st.selectbox(
-#         "Fasting Blood Sugar > 120",
-#         [0, 1]
-#     )
-
-#     resting_ecg = st.selectbox(
-#         "Resting ECG",
-#         ["Normal", "ST", "LVH"]
-#     )
-
-#     max_hr = st.slider(
-#         "Maximum Heart Rate",
-#         60, 220, 150
-#     )
-
-#     exercise_angina = st.selectbox(
-#         "Exercise-Induced Angina",
-#         ["Y", "N"]
-#     )
-
-#     oldpeak = st.slider(
-#         "Oldpeak (ST Depression)",
-#         0.0, 6.0, 1.0
-#     )
-
-#     st_slope = st.selectbox(
-#         "ST Slope",
-#         ["Up", "Flat", "Down"]
-#     )
-
-#     st.markdown("</div>", unsafe_allow_html=True)
-
-# # ---------------- PREDICTION ----------------
-# st.markdown("<br>", unsafe_allow_html=True)
-
-# if st.button("🚀 Predict Heart Disease Risk"):
-
-#     raw_input = {
-#         "Age": age,
-#         "RestingBP": resting_bp,
-#         "Cholesterol": cholesterol,
-#         "FastingBS": fasting_bs,
-#         "MaxHR": max_hr,
-#         "Oldpeak": oldpeak,
-
-#         "Sex_" + sex: 1,
-#         "ChestPainType_" + chest_pain: 1,
-#         "RestingECG_" + resting_ecg: 1,
-#         "ExerciseAngina_" + exercise_angina: 1,
-#         "ST_Slope_" + st_slope: 1
-#     }
-
-#     input_df = pd.DataFrame([raw_input])
-
-#     # Fill missing columns
-#     for col in expected_columns:
-#         if col not in input_df.columns:
-#             input_df[col] = 0
-
-#     input_df = input_df[expected_columns]
-
-#     # Scale Data
-#     scaled_input = scaler.transform(input_df)
-
-#     # Prediction
-#     prediction = model.predict(scaled_input)[0]
-
-#     # Probability
-#     probability = model.predict_proba(scaled_input)[0][1]
-
-#     st.markdown("<br>", unsafe_allow_html=True)
-
-#     st.subheader("📊 Prediction Result")
-
-#     st.progress(int(probability * 100))
-
-#     if prediction == 1:
-
-#         st.markdown(f"""
-#         <div class='result-danger'>
-#             ⚠ HIGH RISK OF HEART DISEASE <br><br>
-#             Risk Probability: {probability*100:.2f}%
-#         </div>
-#         """, unsafe_allow_html=True)
-
-#     else:
-
-#         st.markdown(f"""
-#         <div class='result-success'>
-#             ✅ LOW RISK OF HEART DISEASE <br><br>
-#             Safety Probability: {(1-probability)*100:.2f}%
-#         </div>
-#         """, unsafe_allow_html=True)
-
-# # ---------------- FOOTER ----------------
-# st.markdown("""
-# <div class='footer'>
-#     ❤ Developed by Amit | AI + Machine Learning + Streamlit
-# </div>
-# """, unsafe_allow_html=True)
-
-
 import streamlit as st
 import pandas as pd
 import joblib
@@ -577,7 +153,7 @@ LIGHT = {
 T = DARK if st.session_state.dark_mode else LIGHT
 
 # ─────────────────────────────────────────────
-#  INJECT CSS
+#  INJECT CSS  (with responsive breakpoints)
 # ─────────────────────────────────────────────
 st.markdown("""
 <style>
@@ -590,9 +166,19 @@ html, body, [class*="css"] {
     font-size: 15px;
 }
 
+/* ── Constrain content so it never overflows on small screens ── */
+.block-container {
+    padding-top: 1.2rem !important;
+    padding-bottom: 2rem !important;
+    padding-left: clamp(1rem, 4vw, 3rem) !important;
+    padding-right: clamp(1rem, 4vw, 3rem) !important;
+    max-width: 1300px !important;
+}
+
 .stApp {
     background: """ + T["app_bg"] + """;
     min-height: 100vh;
+    overflow-x: hidden;
 }
 .stApp::before {
     content: '';
@@ -609,26 +195,39 @@ html, body, [class*="css"] {
 [data-testid="stSidebar"] {
     background: """ + T["sidebar_bg"] + """ !important;
     border-right: 1px solid """ + T["sidebar_border"] + """;
+    min-width: 300px !important;
+    max-width: 340px !important;
 }
 [data-testid="stSidebar"] * { color: """ + T["sidebar_text"] + """ !important; }
 [data-testid="stSidebar"] hr { border-color: """ + T["sidebar_border"] + """ !important; }
+[data-testid="stSidebar"] [data-testid="stVerticalBlock"] { gap: .4rem; }
 
 /* ── Scrollbar ── */
-::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar { width: 5px; height: 5px; }
 ::-webkit-scrollbar-track { background: """ + T["scrollbar_track"] + """; }
 ::-webkit-scrollbar-thumb { background: """ + T["scrollbar_thumb"] + """; border-radius: 4px; }
+
+/* ── Responsive column gaps: tighten on smaller viewports ── */
+[data-testid="stHorizontalBlock"] {
+    gap: 1rem;
+    flex-wrap: wrap !important;
+}
+[data-testid="column"] {
+    min-width: 260px;
+}
 
 /* ── Glass card ── */
 .glass-card {
     background: """ + T["card_bg"] + """;
     border: 1px solid """ + T["card_border"] + """;
     border-radius: 20px;
-    padding: 28px 30px;
+    padding: clamp(18px, 3vw, 28px) clamp(16px, 3vw, 30px);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     box-shadow: """ + T["card_shadow"] + """;
     margin-bottom: 20px;
     transition: box-shadow .3s ease, transform .3s ease, border-color .3s ease;
+    width: 100%;
 }
 .glass-card:hover {
     box-shadow: """ + T["card_hover_shadow"] + """;
@@ -641,12 +240,13 @@ html, body, [class*="css"] {
     background: """ + T["card_bg"] + """;
     border: 1px solid """ + T["card_border"] + """;
     border-radius: 18px;
-    padding: 22px 16px;
+    padding: clamp(16px, 2.5vw, 22px) 12px;
     text-align: center;
     position: relative;
     overflow: hidden;
     transition: transform .3s ease, box-shadow .3s ease;
     backdrop-filter: blur(20px);
+    height: 100%;
 }
 .metric-card::after {
     content: '';
@@ -661,10 +261,10 @@ html, body, [class*="css"] {
     box-shadow: """ + T["card_hover_shadow"] + """;
     border-color: """ + T["card_hover_border"] + """;
 }
-.metric-icon  { font-size: 28px; margin-bottom: 10px; display: block; }
+.metric-icon  { font-size: clamp(22px, 3vw, 28px); margin-bottom: 8px; display: block; }
 .metric-value {
     font-family: 'Bricolage Grotesque', sans-serif;
-    font-size: 32px;
+    font-size: clamp(22px, 3.5vw, 32px);
     font-weight: 800;
     background: """ + T["metric_value_grad"] + """;
     -webkit-background-clip: text;
@@ -672,12 +272,13 @@ html, body, [class*="css"] {
     background-clip: text;
     line-height: 1;
     margin-bottom: 6px;
+    word-break: break-word;
 }
 .metric-label {
-    font-size: 11px;
+    font-size: 10.5px;
     color: """ + T["metric_label_c"] + """;
     font-weight: 600;
-    letter-spacing: .8px;
+    letter-spacing: .6px;
     text-transform: uppercase;
 }
 
@@ -687,6 +288,7 @@ html, body, [class*="css"] {
     align-items: center;
     gap: 12px;
     margin-bottom: 22px;
+    flex-wrap: wrap;
 }
 .section-icon {
     width: 38px; height: 38px;
@@ -699,7 +301,7 @@ html, body, [class*="css"] {
 }
 .section-title {
     font-family: 'Bricolage Grotesque', sans-serif;
-    font-size: 18px;
+    font-size: clamp(16px, 2.2vw, 18px);
     font-weight: 700;
     color: """ + T["section_title"] + """;
     letter-spacing: .2px;
@@ -708,28 +310,30 @@ html, body, [class*="css"] {
 /* ── Hero ── */
 .hero-wrap {
     text-align: center;
-    padding: 50px 20px 36px;
+    padding: clamp(28px, 6vw, 50px) clamp(8px, 3vw, 20px) clamp(20px, 4vw, 36px);
 }
 .hero-badge {
     display: inline-flex; align-items: center; gap: 8px;
     background: """ + T["badge_bg"] + """;
     border: 1px solid """ + T["badge_border"] + """;
     border-radius: 999px;
-    padding: 5px 18px;
-    font-size: 11px;
+    padding: 5px 16px;
+    font-size: 10.5px;
     font-weight: 700;
     color: """ + T["badge_text"] + """;
-    letter-spacing: 1.4px;
+    letter-spacing: 1.2px;
     text-transform: uppercase;
-    margin-bottom: 20px;
+    margin-bottom: 18px;
+    max-width: 100%;
 }
 .hero-title {
     font-family: 'Bricolage Grotesque', sans-serif;
-    font-size: clamp(34px, 5vw, 60px);
+    font-size: clamp(28px, 6vw, 60px);
     font-weight: 800;
     color: """ + T["hero_title_c"] + """;
-    line-height: 1.1;
-    margin-bottom: 16px;
+    line-height: 1.15;
+    margin-bottom: 14px;
+    word-wrap: break-word;
 }
 .hero-title span {
     background: """ + T["hero_span_grad"] + """;
@@ -738,12 +342,13 @@ html, body, [class*="css"] {
     background-clip: text;
 }
 .hero-sub {
-    font-size: 16px;
+    font-size: clamp(13px, 1.8vw, 16px);
     color: """ + T["hero_sub"] + """;
     max-width: 500px;
     margin: 0 auto 10px;
-    line-height: 1.75;
+    line-height: 1.7;
     font-weight: 400;
+    padding: 0 8px;
 }
 
 /* ── Divider ── */
@@ -794,6 +399,7 @@ label,
 }
 
 /* ── Number Input ── */
+[data-testid="stNumberInput"] { width: 100% !important; }
 [data-testid="stNumberInput"] input {
     background: """ + T["input_bg"] + """ !important;
     border: 1.5px solid """ + T["input_border"] + """ !important;
@@ -817,6 +423,7 @@ label,
 [data-testid="stNumberInput"] button:hover { background: """ + T["badge_border"] + """ !important; }
 
 /* ── Slider ── */
+[data-testid="stSlider"] { width: 100% !important; padding-bottom: 6px; }
 [data-testid="stSlider"] > div > div > div > div { background: """ + T["progress_track"] + """ !important; }
 [data-testid="stSlider"] div[role="slider"] {
     background: """ + T["accent"] + """ !important;
@@ -827,18 +434,19 @@ label,
 /* ── Predict button ── */
 [data-testid="stButton"] > button {
     width: 100%;
-    height: 60px;
+    height: 58px;
     background: """ + T["btn_bg"] + """;
     color: #fff !important;
     font-family: 'Bricolage Grotesque', sans-serif;
-    font-size: 17px;
+    font-size: clamp(14px, 2vw, 17px);
     font-weight: 700;
-    letter-spacing: .5px;
+    letter-spacing: .3px;
     border: none;
     border-radius: 14px;
     cursor: pointer;
     transition: all .3s ease;
     box-shadow: 0 8px 24px """ + T["btn_shadow"] + """;
+    white-space: normal;
 }
 [data-testid="stButton"] > button:hover {
     transform: translateY(-2px) scale(1.01);
@@ -863,28 +471,30 @@ label,
     background: """ + T["danger_soft"] + """;
     border: 1px solid """ + T["danger_border"] + """;
     border-radius: 18px;
-    padding: 30px 26px;
+    padding: clamp(20px, 4vw, 30px) clamp(16px, 3vw, 26px);
     text-align: center;
     animation: fadeUp .5s ease;
+    height: 100%;
 }
 .result-safe {
     background: """ + T["safe_soft"] + """;
     border: 1px solid """ + T["safe_border"] + """;
     border-radius: 18px;
-    padding: 30px 26px;
+    padding: clamp(20px, 4vw, 30px) clamp(16px, 3vw, 26px);
     text-align: center;
     animation: fadeUp .5s ease;
+    height: 100%;
 }
 .result-headline {
     font-family: 'Bricolage Grotesque', sans-serif;
-    font-size: 22px;
+    font-size: clamp(17px, 2.5vw, 22px);
     font-weight: 800;
     margin-bottom: 10px;
 }
 .result-danger .result-headline { color: """ + T["danger"] + """; }
 .result-safe  .result-headline  { color: """ + T["safe"] + """; }
 .result-prob  {
-    font-size: 52px;
+    font-size: clamp(36px, 6vw, 52px);
     font-weight: 800;
     font-family: 'Bricolage Grotesque', sans-serif;
     line-height: 1;
@@ -903,6 +513,7 @@ label,
     font-size: 13px;
     color: """ + T["text_secondary"] + """;
     margin-bottom: 16px;
+    line-height: 1.6;
 }
 
 /* ── Gauge label ── */
@@ -917,7 +528,7 @@ label,
 }
 
 /* ── Footer ── */
-.footer-wrap { text-align: center; padding: 36px 20px 24px; }
+.footer-wrap { text-align: center; padding: 36px 12px 24px; }
 .footer-logo {
     font-family: 'Bricolage Grotesque', sans-serif;
     font-size: 20px;
@@ -941,6 +552,44 @@ label,
 #MainMenu, footer, header { visibility: hidden; }
 input, textarea, select { color: """ + T["input_text"] + """ !important; }
 input::placeholder { color: """ + T["text_muted"] + """ !important; }
+
+/* ══════════════════════════════════════════════
+   RESPONSIVE BREAKPOINTS
+   ══════════════════════════════════════════════ */
+
+/* Tablets & small laptops */
+@media (max-width: 992px) {
+    .block-container { padding-left: 1.2rem !important; padding-right: 1.2rem !important; }
+    [data-testid="stSidebar"] { min-width: 260px !important; }
+}
+
+/* Tablets / large phones — Streamlit auto-stacks columns near this width */
+@media (max-width: 768px) {
+    .hero-wrap { padding-top: 20px; }
+    .hero-sub { max-width: 100%; }
+    .glass-card { padding: 18px 16px; }
+    .section-header { margin-bottom: 16px; }
+    .metric-card { padding: 14px 10px; }
+    [data-testid="stHorizontalBlock"] { gap: 0.6rem; }
+    .footer-wrap { padding: 24px 10px 18px; }
+}
+
+/* Phones */
+@media (max-width: 480px) {
+    html, body, [class*="css"] { font-size: 14px; }
+    .block-container { padding-left: .75rem !important; padding-right: .75rem !important; }
+    .hero-title { font-size: 28px !important; line-height: 1.2; }
+    .hero-badge { font-size: 9.5px; padding: 4px 12px; }
+    .hero-sub { font-size: 13px; }
+    .metric-value { font-size: 20px; }
+    .metric-icon { font-size: 20px; }
+    .metric-label { font-size: 9px; }
+    .result-prob { font-size: 34px; }
+    .result-headline { font-size: 16px; }
+    [data-testid="stButton"] > button { height: 52px; font-size: 14px; }
+    .section-icon { width: 32px; height: 32px; font-size: 14px; }
+    .section-title { font-size: 15px; }
+}
 </style>
 """, unsafe_allow_html=True)
 
@@ -1048,7 +697,7 @@ if not model_loaded:
     """, unsafe_allow_html=True)
 
 # ─────────────────────────────────────────────
-#  METRIC CARDS
+#  METRIC CARDS  (2 cols on mobile, 4 on desktop)
 # ─────────────────────────────────────────────
 mc1, mc2, mc3, mc4 = st.columns(4)
 cards = [("🎯","93.5%","Model Accuracy"),("⚡","< 1 s","Inference Time"),
@@ -1131,10 +780,10 @@ with col_right:
     slope_code = st_slope[:4].strip()
 
 # ─────────────────────────────────────────────
-#  PREDICT BUTTON
+#  PREDICT BUTTON  (left-aligned under the form)
 # ─────────────────────────────────────────────
 st.markdown("<br>", unsafe_allow_html=True)
-btn_col = st.columns([1, 2, 1])[1]
+btn_col, _spacer = st.columns([1, 2])
 with btn_col:
     predict_clicked = st.button("🔍  Analyse Cardiovascular Risk")
 
