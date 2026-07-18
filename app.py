@@ -745,10 +745,10 @@ st.markdown("""
     <h1 class="hero-title">
         Cardiovascular Risk<br><span>Intelligence Platform</span>
     </h1>
-    <p class="hero-sub">
+    <center><p class="hero-sub">
         Real-time heart disease prediction powered by machine learning —
         built for clinicians, researchers, and healthcare innovators.
-    </p>
+    </p></center>
 </div>
 <div class="glow-divider"></div>
 """, unsafe_allow_html=True)
