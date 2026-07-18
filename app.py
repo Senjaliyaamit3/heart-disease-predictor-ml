@@ -9,7 +9,7 @@ import time
 # ─────────────────────────────────────────────
 st.set_page_config(
     page_title="CardioAI · Heart Risk Intelligence",
-    page_icon="❤️",
+    page_icon="https://cdn-icons-png.flaticon.com/512/2966/2966486.png",
     layout="wide",
     initial_sidebar_state="expanded",
 )
@@ -531,6 +531,13 @@ label,
 
 /* ── Footer ── */
 .footer-wrap { text-align: center; padding: 36px 12px 24px; }
+.footer-logo-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 6px;
+}
 .footer-logo {
     font-family: 'Bricolage Grotesque', sans-serif;
     font-size: 20px;
@@ -539,7 +546,6 @@ label,
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    margin-bottom: 6px;
 }
 .footer-sub { font-size: 12px; color: """ + T["footer_text"] + """; letter-spacing: .3px; }
 .footer-sub a { color: """ + T["footer_link"] + """; text-decoration: none; }
@@ -623,9 +629,9 @@ input::placeholder { color: """ + T["text_muted"] + """ !important; }
 with st.sidebar:
     st.markdown("""
     <div style="text-align:center;padding:18px 0 10px;">
-        <div style="font-size:50px;">❤️</div>
+        <img src="https://cdn-icons-png.flaticon.com/512/2966/2966486.png" width="70" style="margin:0 auto;display:block;" />
         <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:22px;
-                    font-weight:800;color:#a5b4fc;margin-top:8px;">CardioAI</div>
+                    font-weight:800;color:#a5b4fc;margin-top:10px;">CardioAI</div>
         <div style="font-size:11px;color:rgba(165,180,252,.5);letter-spacing:1px;
                     text-transform:uppercase;margin-top:4px;">Heart Risk Intelligence</div>
     </div>
@@ -703,10 +709,10 @@ st.markdown("""
     <h1 class="hero-title">
         Cardiovascular Risk<br><span>Intelligence Platform</span>
     </h1>
-    <center><p class="hero-sub">
+    <p class="hero-sub">
         Real-time heart disease prediction powered by machine learning —
         built for clinicians, researchers, and healthcare innovators.
-    </p></center>
+    </p>
 </div>
 <div class="glow-divider"></div>
 """, unsafe_allow_html=True)
@@ -963,7 +969,10 @@ if predict_clicked:
 st.markdown("<div class='glow-divider' style='margin-top:40px;'></div>", unsafe_allow_html=True)
 st.markdown("""
 <div class="footer-wrap">
-    <div class="footer-logo">❤️ CardioAI</div>
+    <div class="footer-logo-row">
+        <img src="https://cdn-icons-png.flaticon.com/512/2966/2966486.png" width="20" />
+        <span class="footer-logo">CardioAI</span>
+    </div>
     <div class="footer-sub">
         Crafted with precision by <a href="#">Amit</a> &nbsp;·&nbsp;
         Powered by Scikit-Learn &amp; Streamlit &nbsp;·&nbsp; © 2025 All Rights Reserved
