@@ -548,29 +548,29 @@ label,
     to   { opacity: 1; transform: translateY(0); }
 }
 
-/* hide streamlit branding — but KEEP header so the sidebar toggle stays usable */
-#MainMenu { visibility: hidden; }
+/* hide only the "Made with Streamlit" footer — leave header/menu fully
+   default and untouched so the native sidebar arrow ALWAYS works,
+   regardless of Streamlit version or internal testid names */
 footer { visibility: hidden; }
-header[data-testid="stHeader"] {
-    background: transparent !important;
-    height: 3rem;
-}
-/* Make the sidebar open/close arrow clearly visible in both themes */
-[data-testid="stSidebarCollapsedControl"],
-[data-testid="collapsedControl"],
-button[kind="header"] {
+
+/* Force every icon/button inside the header to be bright and clickable,
+   using generic selectors (not fragile testids) so this survives
+   Streamlit version changes */
+header, header * {
     visibility: visible !important;
     opacity: 1 !important;
+}
+header {
+    background: transparent !important;
+}
+header svg {
+    fill: """ + T["accent"] + """ !important;
     color: """ + T["accent"] + """ !important;
+    opacity: 1 !important;
+}
+header button {
     z-index: 999999 !important;
 }
-[data-testid="stSidebarCollapsedControl"] svg,
-[data-testid="collapsedControl"] svg,
-button[kind="header"] svg {
-    fill: """ + T["accent"] + """ !important;
-    stroke: """ + T["accent"] + """ !important;
-}
-[data-testid="stToolbar"] { visibility: hidden; }
 
 input, textarea, select { color: """ + T["input_text"] + """ !important; }
 input::placeholder { color: """ + T["text_muted"] + """ !important; }
