@@ -548,8 +548,30 @@ label,
     to   { opacity: 1; transform: translateY(0); }
 }
 
-/* hide streamlit branding */
-#MainMenu, footer, header { visibility: hidden; }
+/* hide streamlit branding — but KEEP header so the sidebar toggle stays usable */
+#MainMenu { visibility: hidden; }
+footer { visibility: hidden; }
+header[data-testid="stHeader"] {
+    background: transparent !important;
+    height: 3rem;
+}
+/* Make the sidebar open/close arrow clearly visible in both themes */
+[data-testid="stSidebarCollapsedControl"],
+[data-testid="collapsedControl"],
+button[kind="header"] {
+    visibility: visible !important;
+    opacity: 1 !important;
+    color: """ + T["accent"] + """ !important;
+    z-index: 999999 !important;
+}
+[data-testid="stSidebarCollapsedControl"] svg,
+[data-testid="collapsedControl"] svg,
+button[kind="header"] svg {
+    fill: """ + T["accent"] + """ !important;
+    stroke: """ + T["accent"] + """ !important;
+}
+[data-testid="stToolbar"] { visibility: hidden; }
+
 input, textarea, select { color: """ + T["input_text"] + """ !important; }
 input::placeholder { color: """ + T["text_muted"] + """ !important; }
 
